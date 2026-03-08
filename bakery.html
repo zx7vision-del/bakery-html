@@ -1,0 +1,426 @@
+Here is a complete, single-file solution containing the HTML, CSS, and JavaScript. You can save this code as an .html file (e.g., bakery.html) and open it in any web browser.
+
+I have used placeholder images from Unsplash so the design looks populated immediately.
+
+<!DOCTYPE html>      <html lang="en">      
+<head>      
+    <meta charset="UTF-8">      
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">      
+    <title>Crumb & Co. | Artisan Bakery</title>      
+    <!-- Google Fonts -->      
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">      <style>      
+    /* --- CSS VARIABLES & RESET --- */      
+    :root {      
+        --primary-color: #d4a373; /* Golden Brown */      
+        --secondary-color: #faedcd; /* Cream */      
+        --text-dark: #333333;      
+        --text-light: #ffffff;      
+        --accent: #bc6c25;      
+        --font-heading: 'Playfair Display', serif;      
+        --font-body: 'Poppins', sans-serif;      
+    }      
+  
+    * {      
+        margin: 0;      
+        padding: 0;      
+        box-sizing: border-box;      
+    }      
+  
+    body {      
+        font-family: var(--font-body);      
+        color: var(--text-dark);      
+        line-height: 1.6;      
+        background-color: #fffdf7;      
+    }      
+  
+    a { text-decoration: none; color: inherit; }      
+    ul { list-style: none; }      
+    img { max-width: 100%; display: block; }      
+  
+    /* --- NAVIGATION --- */      
+    header {      
+        background-color: #fff;      
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);      
+        position: fixed;      
+        width: 100%;      
+        top: 0;      
+        z-index: 1000;      
+    }      
+  
+    nav {      
+        max-width: 1200px;      
+        margin: 0 auto;      
+        padding: 1rem 2rem;      
+        display: flex;      
+        justify-content: space-between;      
+        align-items: center;      
+    }      
+  
+    .logo {      
+        font-family: var(--font-heading);      
+        font-size: 1.8rem;      
+        font-weight: 700;      
+        color: var(--accent);      
+    }      
+  
+    .nav-links {      
+        display: flex;      
+        gap: 2rem;      
+    }      
+  
+    .nav-links a {      
+        font-weight: 500;      
+        transition: color 0.3s;      
+    }      
+  
+    .nav-links a:hover {      
+        color: var(--primary-color);      
+    }      
+  
+    .hamburger {      
+        display: none;      
+        cursor: pointer;      
+        font-size: 1.5rem;      
+    }      
+  
+    /* --- HERO SECTION --- */      
+    .hero {      
+        height: 100vh;      
+        background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');      
+        background-size: cover;      
+        background-position: center;      
+        display: flex;      
+        align-items: center;      
+        justify-content: center;      
+        text-align: center;      
+        color: var(--text-light);      
+        padding: 0 1rem;      
+    }      
+  
+    .hero-content h1 {      
+        font-family: var(--font-heading);      
+        font-size: 4rem;      
+        margin-bottom: 1rem;      
+        animation: fadeInUp 1s ease;      
+    }      
+  
+    .hero-content p {      
+        font-size: 1.2rem;      
+        margin-bottom: 2rem;      
+        animation: fadeInUp 1.2s ease;      
+    }      
+  
+    .btn {      
+        display: inline-block;      
+        background-color: var(--primary-color);      
+        color: var(--text-light);      
+        padding: 0.8rem 2rem;      
+        border-radius: 30px;      
+        font-weight: 600;      
+        transition: background 0.3s;      
+        animation: fadeInUp 1.4s ease;      
+    }      
+  
+    .btn:hover {      
+        background-color: var(--accent);      
+    }      
+  
+    /* --- SECTIONS GENERAL --- */      
+    section {      
+        padding: 5rem 2rem;      
+        max-width: 1200px;      
+        margin: 0 auto;      
+    }      
+  
+    .section-title {      
+        text-align: center;      
+        font-family: var(--font-heading);      
+        font-size: 2.5rem;      
+        margin-bottom: 3rem;      
+        color: var(--accent);      
+    }      
+  
+    /* --- MENU SECTION --- */      
+    .menu-grid {      
+        display: grid;      
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));      
+        gap: 2rem;      
+    }      
+  
+    .menu-item {      
+        background: #fff;      
+        border-radius: 10px;      
+        overflow: hidden;      
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);      
+        transition: transform 0.3s;      
+    }      
+  
+    .menu-item:hover {      
+        transform: translateY(-5px);      
+    }      
+  
+    .menu-img {      
+        height: 200px;      
+        width: 100%;      
+        object-fit: cover;      
+    }      
+  
+    .menu-details {      
+        padding: 1.5rem;      
+        text-align: center;      
+    }      
+  
+    .menu-details h3 {      
+        font-family: var(--font-heading);      
+        margin-bottom: 0.5rem;      
+    }      
+  
+    .price {      
+        color: var(--accent);      
+        font-weight: 700;      
+        font-size: 1.1rem;      
+    }      
+  
+    /* --- GALLERY SECTION --- */      
+    .gallery-grid {      
+        display: grid;      
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));      
+        gap: 1rem;      
+    }      
+  
+    .gallery-item {      
+        height: 250px;      
+        overflow: hidden;      
+        border-radius: 8px;      
+        cursor: pointer;      
+    }      
+  
+    .gallery-item img {      
+        width: 100%;      
+        height: 100%;      
+        object-fit: cover;      
+        transition: transform 0.5s;      
+    }      
+  
+    .gallery-item:hover img {      
+        transform: scale(1.1);      
+    }      
+  
+    /* --- CONTACT & MAP --- */      
+    .contact-container {      
+        display: flex;      
+        flex-wrap: wrap;      
+        gap: 2rem;      
+        background-color: var(--secondary-color);      
+        padding: 3rem;      
+        border-radius: 15px;      
+    }      
+  
+    .contact-info, .map-container {      
+        flex: 1;      
+        min-width: 300px;      
+    }      
+  
+    .contact-info h3 {      
+        font-family: var(--font-heading);      
+        margin-bottom: 1rem;      
+        font-size: 1.5rem;      
+    }      
+  
+    .contact-item {      
+        margin-bottom: 1rem;      
+        display: flex;      
+        align-items: center;      
+        gap: 10px;      
+    }      
+  
+    .map-container iframe {      
+        width: 100%;      
+        height: 300px;      
+        border-radius: 10px;      
+        border: none;      
+    }      
+  
+    /* --- FOOTER --- */      
+    footer {      
+        background-color: #222;      
+        color: #fff;      
+        text-align: center;      
+        padding: 2rem;      
+        margin-top: 2rem;      
+    }      
+  
+    /* --- ANIMATIONS --- */      
+    @keyframes fadeInUp {      
+        from { opacity: 0; transform: translateY(20px); }      
+        to { opacity: 1; transform: translateY(0); }      
+    }      
+  
+    /* --- RESPONSIVE --- */      
+    @media (max-width: 768px) {      
+        .nav-links {      
+            position: absolute;      
+            right: 0px;      
+            height: 100vh;      
+            top: 0;      
+            background-color: #fff;      
+            flex-direction: column;      
+            align-items: center;      
+            width: 50%;      
+            transform: translateX(100%);      
+            transition: transform 0.3s ease-in;      
+            padding-top: 5rem;      
+            box-shadow: -2px 0 5px rgba(0,0,0,0.1);      
+        }      
+  
+        .nav-links.active {      
+            transform: translateX(0%);      
+        }      
+  
+        .hamburger {      
+            display: block;      
+        }      
+  
+        .hero-content h1 {      
+            font-size: 2.5rem;      
+        }      
+    }      
+</style>
+
+</head>      
+<body>      <!-- Header -->      
+<header>      
+    <nav>      
+        <div class="logo">Crumb & Co.</div>      
+        <ul class="nav-links">      
+            <li><a href="#home">Home</a></li>      
+            <li><a href="#menu">Menu</a></li>      
+            <li><a href="#gallery">Gallery</a></li>      
+            <li><a href="#contact">Contact</a></li>      
+        </ul>      
+        <div class="hamburger">      
+            &#9776;      
+        </div>      
+    </nav>      
+</header>      
+  
+<!-- Hero Section -->      
+<section id="home" class="hero">      
+    <div class="hero-content">      
+        <h1>Baked with Love</h1>      
+        <p>Fresh artisan breads, pastries, and cakes made daily.</p>      
+        <a href="#menu" class="btn">View Our Menu</a>      
+    </div>      
+</section>      
+  
+<!-- Menu Section -->      
+<section id="menu">      
+    <h2 class="section-title">Our Favorites</h2>      
+    <div class="menu-grid">      
+        <!-- Item 1 -->      
+        <div class="menu-item">      
+            <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Croissant" class="menu-img">      
+            <div class="menu-details">      
+                <h3>Butter Croissant</h3>      
+                <p>Flaky, buttery, and golden.</p>      
+                <span class="price">$3.50</span>      
+            </div>      
+        </div>      
+        <!-- Item 2 -->      
+        <div class="menu-item">      
+            <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Sourdough" class="menu-img">      
+            <div class="menu-details">      
+                <h3>Artisan Sourdough</h3>      
+                <p>Crusty exterior, soft interior.</p>      
+                <span class="price">$6.00</span>      
+            </div>      
+        </div>      
+        <!-- Item 3 -->      
+        <div class="menu-item">      
+            <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Cake" class="menu-img">      
+            <div class="menu-details">      
+                <h3>Chocolate Fudge</h3>      
+                <p>Rich dark chocolate layers.</p>      
+                <span class="price">$5.50</span>      
+            </div>      
+        </div>      
+        <!-- Item 4 -->      
+        <div class="menu-item">      
+            <img src="https://images.unsplash.com/photo-1612203985729-70726954388c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Muffin" class="menu-img">      
+            <div class="menu-details">      
+                <h3>Blueberry Muffin</h3>      
+                <p>Bursting with fresh berries.</p>      
+                <span class="price">$3.00</span>      
+            </div>      
+        </div>      
+    </div>      
+</section>      
+  
+<!-- Gallery Section -->      
+<section id="gallery">      
+    <h2 class="section-title">Gallery</h2>      
+    <div class="gallery-grid">      
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1517433670267-08bbd4be890f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Bakery Interior"></div>      
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1556910103-1c02745a30bf?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Bread"></div>      
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1506084868230-bb9d95c24759?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Pastry"></div>      
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Cupcakes"></div>      
+    </div>      
+</section>      
+  
+<!-- Contact Section -->      
+<section id="contact">      
+    <h2 class="section-title">Visit Us</h2>      
+    <div class="contact-container">      
+        <div class="contact-info">      
+            <h3>Crumb & Co.</h3>      
+            <p>We are located in the heart of the city. Come say hello and smell the fresh bread!</p>      
+            <br>      
+            <div class="contact-item">      
+                <strong>📞 Phone:</strong> (555) 123-4567      
+            </div>      
+            <div class="contact-item">      
+                <strong>📧 Email:</strong> hello@crumbandco.com      
+            </div>      
+            <div class="contact-item">      
+                <strong>🕒 Hours:</strong> Mon-Sat: 7am - 7pm      
+            </div>      
+        </div>      
+        <div class="map-container">      
+            <!-- Google Map Embed (Generic Location) -->      
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.1422937950147!2d-73.98731968482413!3d40.75889497932681!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25855c6480299%3A0x55194ec5a1ae072e!2sTimes%20Square!5e0!3m2!1sen!2sus!4v1620000000000!5m2!1sen!2sus" allowfullscreen="" loading="lazy"></iframe>      
+        </div>      
+    </div>      
+</section>      
+  
+<!-- Footer -->      
+<footer>      
+    <p>&copy; 2023 Crumb & Co. Bakery. All rights reserved.</p>      
+</footer>      
+  
+<!-- JavaScript -->      
+<script>      
+    // Mobile Menu Toggle      
+    const hamburger = document.querySelector('.hamburger');      
+    const navLinks = document.querySelector('.nav-links');      
+    const links = document.querySelectorAll('.nav-links li');      
+  
+    hamburger.addEventListener('click', () => {      
+        navLinks.classList.toggle('active');      
+    });      
+  
+    // Close mobile menu when a link is clicked      
+    links.forEach(link => {      
+        link.addEventListener('click', () => {      
+            navLinks.classList.remove('active');      
+        });      
+    });      
+  
+    // Smooth Scrolling for anchor links      
+    document.querySelectorAll('a[href^="#
+
+Is code me tu phone number 736378272 dal
+Email gshhhshj46hdjs Gmail.com dal
+
+Aur pestri price 50 dal cake 150 1 paund bala dal aur sab 50 rupees dal
+
+Aur mujhe code de pura
